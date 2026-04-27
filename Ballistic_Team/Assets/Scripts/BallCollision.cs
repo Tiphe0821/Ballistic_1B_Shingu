@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BallCollision : MonoBehaviour
 {
-
+    public CreateNextBall createNextBall;
     private Rigidbody2D rb;
 
     void Start()
@@ -17,6 +17,7 @@ public class BallCollision : MonoBehaviour
         if(collision.gameObject.CompareTag(gameObject.tag))
         {
             Destroy(gameObject);
+            createNextBall.BallCollision(this.gameObject);
         }
     }
 }
