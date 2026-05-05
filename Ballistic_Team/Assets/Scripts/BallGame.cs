@@ -3,7 +3,7 @@ using UnityEngine;
 public class BallGame : MonoBehaviour
 {
     public GameObject[] fruitPrefabs;
-    public float[] fruitSizes = { 0.5f, 0.7f, 0.9f, 1.1f, 1.3f, 1.5f, 1.7f, 1.9f };
+    public float[] ballSizes = { 0.5f, 0.7f, 0.9f, 1.1f, 1.3f, 1.5f, 1.7f, 1.9f };
 
     public GameObject currentBall;
     public int currentBallType;
@@ -11,14 +11,14 @@ public class BallGame : MonoBehaviour
     public bool isGameOver = false;
     public Camera mainCamera;
 
-    public float fruitTimer;
+    public float ballTimer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         mainCamera = Camera.main;
-        SpawnNewFruit();
-        fruitTimer = -3.0f;
+        SpawnNewBall();
+        ballTimer = -3.0f;
     }
 
     // Update is called once per frame
@@ -27,15 +27,15 @@ public class BallGame : MonoBehaviour
         if (isGameOver)
             return;
 
-        if (fruitTimer >= 0)
+        if (ballTimer >= 0)
         {
-            fruitTimer -= Time.deltaTime;
+            ballTimer -= Time.deltaTime;
         }
 
-        if (fruitTimer < 0 && fruitTimer > -2)
+        if (ballTimer < 0 && ballTimer > -2)
         {
-            SpawnNewFruit();
-            fruitTimer = -3.0f;
+            SpawnNewBall();
+            ballTimer = -3.0f;
         }
 
         if (currentBall != null)
@@ -47,18 +47,18 @@ public class BallGame : MonoBehaviour
             Vector3 newPosition = currentBall.transform.position;
             newPosition.x = worldPosition.x;
 
-            float halfFruitSize = fruitSizes[currentBallType] / 2f;
+            float halfFruitSize = ballSizes[currentBallType] / 2f;
 
             currentBall.transform.position = newPosition;
         }
 
-        if (Input.GetMouseButton(0) && fruitTimer == -3.0f)
+        if (Input.GetMouseButton(0) && ballTimer == -3.0f)
         {
-            DropFruit();
+            DropBall();
         }
     }
 
-    void SpawnNewFruit()
+    void SpawnNewBall()
     {
         if (!isGameOver)
         {
@@ -69,10 +69,10 @@ public class BallGame : MonoBehaviour
 
             Vector3 spawnPosition = new Vector3(worldPosition.x, worldPosition.y, 0);
 
-            float halfFruitSize = fruitSizes[currentBallType] / 2f;
+            float halfBallSize = ballSizes[currentBallType] / 2f;
 
             currentBall = Instantiate(fruitPrefabs[currentBallType], spawnPosition, Quaternion.identity);
-            currentBall.transform.localScale = new Vector3(fruitSizes[currentBallType], fruitSizes[currentBallType], 1);
+            currentBall.transform.localScale = new Vector3(ballSizes[currentBallType], ballSizes[currentBallType], 1);
 
             Rigidbody2D rb = currentBall.GetComponent<Rigidbody2D>();
 
@@ -83,14 +83,19 @@ public class BallGame : MonoBehaviour
         }
     }
 
-    void DropFruit()
+    void DropBall()
     {
         Rigidbody2D rb = currentBall.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
             rb.gravityScale = 1f;
             currentBall = null;
-            fruitTimer = 1.0f;
+            ballTimer = 1.0f;
         }
+    }
+
+    public void SpawnNextBall(Vector3 position)
+    {
+        
     }
 }

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+
+
     public int ballType;
 
     public bool hasMerged = false;
