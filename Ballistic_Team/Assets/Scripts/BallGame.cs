@@ -78,7 +78,7 @@ public class BallGame : MonoBehaviour
 
     }
 
-    void SpawnNewBall()
+    void SpawnNewBall()         // 기존 과일게임 코드 -> 하프사이즈 같은거 다 집어치우고 다 바꿀 예정 (아직은 유지)
     {
         if (!isGameOver)
         {
@@ -107,7 +107,7 @@ public class BallGame : MonoBehaviour
 
     void DropBall()
     {
-        Debug.Log("들어왔다");
+        Debug.Log("공 드랍");
         Rigidbody2D rb = currentBall.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
