@@ -65,10 +65,17 @@ public class BallGame : MonoBehaviour
             currentBall.transform.position = newPosition;
         }
 
-        if (Input.GetMouseButton(0) && ballTimer == -3.0f)
-        {
+        if(Input.GetMouseButtonDown(0) && ballTimer == -3.0f)
+        { 
             DropBall();
         }
+    }
+    
+    
+    // private float getfloat() => 
+    private void OnDrawGizmosSelected()
+    {
+
     }
 
     void SpawnNewBall()
@@ -100,6 +107,7 @@ public class BallGame : MonoBehaviour
 
     void DropBall()
     {
+        Debug.Log("들어왔다");
         Rigidbody2D rb = currentBall.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
